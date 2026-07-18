@@ -1,13 +1,10 @@
 from pathlib import Path
 
 from langchain_community.document_loaders import TextLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 def cargar_documentos():
-    """
-    Carga todos los archivos .txt ubicados en la carpeta docs.
-    """
-
     carpeta_docs = Path("docs")
 
     documentos = []
@@ -19,12 +16,21 @@ def cargar_documentos():
     return documentos
 
 
+def dividir_documentos(documentos):
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1000,
+        chunk_overlap=200
+    )
+
+    return splitter.split_documents(documentos)
+
+
 if __name__ == "__main__":
-    docs = cargar_documentos()
+    documentos = cargar_documentos()
+    chunks = dividir_documentos(documentos)
 
-    print(f"Se cargaron {len(docs)} documentos.\n")
+    print(f"Documentos cargados: {len(documentos)}")
+    print(f"Chunks generados: {len(chunks)}\n")
 
-    for doc in docs:
-        print("=" * 60)
-        print(doc.metadata["source"])
-        print(doc.page_content[:500])
+    print("=" * 60)
+    print(chunks[0].page_content)
