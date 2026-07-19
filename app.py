@@ -1,5 +1,12 @@
+from src.embeddings import construir_indice_faiss
+from src.loader import cargar_documentos, dividir_documentos
+
+
 def main():
-    print("SudoAgile-AI listo.")
+    documentos = cargar_documentos()
+    chunks = dividir_documentos(documentos)
+    construir_indice_faiss(chunks)
+    print("Pipeline completado: PDF -> chunks -> embeddings Gemini -> FAISS.")
 
 
 if __name__ == "__main__":
