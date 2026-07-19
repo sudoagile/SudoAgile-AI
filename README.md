@@ -1,24 +1,69 @@
-# SudoAgile-AI
+# GestSudo AI
 
-Pipeline de indexacion vectorial con Gemini + FAISS:
+> **Asistente Inteligente para Gestión de Proyectos Empresariales**
+
+## Resumen Ejecutivo
+
+**GestSudo AI** es el módulo de Inteligencia Artificial de **GestSudo**, plataforma empresarial desarrollada por **Sudo Agile S.A.**
+
+Este proyecto fue desarrollado para el **Challenge Alura Agente** e implementa una arquitectura **Retrieval-Augmented Generation (RAG)** utilizando **Azure OpenAI**, **LangChain**, **FAISS** y **Streamlit** para responder consultas sobre la documentación oficial de GestSudo.
+
+---
+
+## Arquitectura
 
 ```text
-PDF -> PyPDFLoader -> Chunks -> Embeddings Gemini -> FAISS -> db/faiss_index
+Usuario -> Streamlit -> LangChain/RAG -> FAISS <-> Azure OpenAI -> Respuesta
 ```
 
-## Requisitos
+## Tecnologías
 
-1. Variable de entorno `GEMINI_API_KEY`.
-2. Dependencias instaladas desde `requirements.txt`.
+- Python
+- Streamlit
+- Azure OpenAI (GPT-5-mini)
+- text-embedding-3-small
+- LangChain
+- FAISS
+- GitHub
 
-Opcional:
+## Estructura
 
-- `GEMINI_EMBEDDING_MODEL` (default: `gemini-embedding-001`).
+```text
+GestSudo-AI
+├── app.py
+├── streamlit_app.py
+├── requirements.txt
+├── docs/
+│   ├── DOCUMENTACION_DESARROLLADORES.pdf
+│   └── DOCUMENTACION_USUARIO.pdf
+├── db/faiss_index
+├── src/
+└── tools/
+```
 
-## Ejecucion
+## Documentación
+
+La carpeta `docs/` contiene la documentación oficial utilizada como base de conocimiento del asistente.
+
+## Instalación
 
 ```bash
-py -3 app.py
+git clone https://github.com/sudoagile/GestSudo-AI.git
+cd GestSudo-AI
+python -m venv .venv
+pip install -r requirements.txt
+python app.py
+streamlit run streamlit_app.py
 ```
 
-Al finalizar, el indice se guarda en `db/faiss_index`.
+## Roadmap
+
+- Integración con GestSudo.
+- Despliegue en OCI.
+- Gestión documental.
+
+## Autor
+
+Eduardo Ramirez De Lama
+
+© Sudo Agile S.A.
