@@ -1,36 +1,44 @@
 from pathlib import Path
 
-from langchain_community.document_loaders import TextLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 def cargar_documentos():
-    carpeta_docs = Path("docs")
-
+    """
+    Carga todos los archivos PDF ubicados en la carpeta docs.
+    """
     documentos = []
 
-    for archivo in carpeta_docs.glob("*.txt"):
-        loader = TextLoader(str(archivo), encoding="utf-8")
+    carpeta_docs = Path("docs")
+
+    for archivo in carpeta_docs.glob("*.pdf"):
+        print(f"Cargando: {archivo.name}")
+
+        loader = PyPDFLoader(str(archivo))
         documentos.extend(loader.load())
+
+    print(f"Total de páginas cargadas: {len(documentos)}")
 
     return documentos
 
 
 def dividir_documentos(documentos):
+    """
+    Divide los documentos en fragmentos (chunks).
+    """
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=200
     )
 
-    return splitter.split_documents(documentos)
+    chunks = splitter.split_documents(documentos)
+
+    print(f"Total de chunks: {len(chunks)}")
+
+    return chunks
 
 
 if __name__ == "__main__":
     documentos = cargar_documentos()
-    chunks = dividir_documentos(documentos)
-
-    print(f"Documentos cargados: {len(documentos)}")
-    print(f"Chunks generados: {len(chunks)}\n")
-
-    print("=" * 60)
-    print(chunks[0].page_content)
+    dividir_documentos(documentos)
