@@ -3,7 +3,7 @@
 > **Asistente Inteligente Empresarial basado en Retrieval-Augmented
 > Generation (RAG)**
 
-![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Python](https://img.shields.io/badge/Python-3-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Web-red)
 ![LangChain](https://img.shields.io/badge/LangChain-RAG-green)
 ![FAISS](https://img.shields.io/badge/FAISS-Vector_Search-orange)
@@ -12,114 +12,108 @@ EC2](https://img.shields.io/badge/AWS-EC2-FF9900)
 
 ------------------------------------------------------------------------
 
-# 1. Descripción del proyecto
+# 🚀 Demo en línea
 
-**GestSudo AI** es el módulo de Inteligencia Artificial de la plataforma
-empresarial **GestSudo**, desarrollado para responder consultas sobre
-documentación técnica y funcional mediante lenguaje natural.
+**Aplicación desplegada en Amazon EC2**
 
-La solución implementa una arquitectura **Retrieval-Augmented Generation
-(RAG)** que combina **Azure OpenAI**, **LangChain**, **FAISS**,
-**PyPDFLoader** y **Streamlit** para ofrecer respuestas contextualizadas
-a partir de la documentación oficial del sistema.
+**URL pública**
 
-Este proyecto fue desarrollado como entrega final del **Challenge de
-Inteligencia Artificial de Alura Latam**.
+http://100.58.178.56:8501
+
+**Repositorio**
+
+https://github.com/sudoagile/SudoAgile-AI
 
 ------------------------------------------------------------------------
 
-# 2. Arquitectura de la solución
+  Información       Valor
+  ----------------- ------------------------
+  Challenge         Alura Latam - IA
+  Arquitectura      RAG
+  Modelo            GPT-5 Mini
+  Embeddings        text-embedding-3-small
+  Framework         LangChain
+  Base vectorial    FAISS
+  Interfaz          Streamlit
+  Infraestructura   Amazon EC2
+  Estado            Producción
+
+------------------------------------------------------------------------
+
+# Captura de la aplicación
+
+![GestSudo AI](capturas/web.png)
+
+------------------------------------------------------------------------
+
+# Descripción del proyecto
+
+GestSudo AI es un asistente inteligente que implementa una arquitectura
+**Retrieval-Augmented Generation (RAG)** para consultar documentación
+funcional y técnica mediante lenguaje natural.
+
+La solución integra Azure OpenAI, LangChain, FAISS y Streamlit,
+permitiendo obtener respuestas contextualizadas a partir de documentos
+PDF indexados.
+
+------------------------------------------------------------------------
+
+# Arquitectura de la solución
 
 ``` text
-                         Usuario
-                            │
-                            ▼
-                 Interfaz Web (Streamlit)
-                            │
-                            ▼
-                Orquestador LangChain (RAG)
-                            │
-         ┌──────────────────┴──────────────────┐
-         │                                     │
-         ▼                                     ▼
- Índice Vectorial FAISS             Azure OpenAI
-                             GPT-5 Mini + Embeddings
-         └──────────────────┬──────────────────┘
-                            ▼
-                 Respuesta Contextualizada
+Usuario
+   │
+   ▼
+Streamlit
+   │
+   ▼
+LangChain
+   │
+ ┌─┴────────────┐
+ ▼              ▼
+FAISS     Azure OpenAI
+   │              │
+   └──────┬───────┘
+          ▼
+Respuesta contextual
 ```
 
-------------------------------------------------------------------------
+# Tecnologías
 
-# 3. Tecnologías utilizadas
+-   Python
+-   Streamlit
+-   LangChain
+-   Azure OpenAI
+-   GPT-5 Mini
+-   text-embedding-3-small
+-   FAISS
+-   PyPDFLoader
+-   Amazon EC2
+-   GitHub
 
-  Componente             Tecnología
-  ---------------------- -------------------------
-  Lenguaje               Python 3
-  Interfaz Web           Streamlit
-  Modelo de IA           Azure OpenAI GPT-5 Mini
-  Embeddings             text-embedding-3-small
-  Framework              LangChain
-  Base Vectorial         FAISS
-  Carga de documentos    PyPDFLoader
-  Infraestructura        Amazon EC2
-  Control de versiones   Git y GitHub
-
-------------------------------------------------------------------------
-
-# 4. Estructura del proyecto
+# Estructura del proyecto
 
 ``` text
 SudoAgile-AI/
-│
-├── app.py                    # Generación del índice FAISS
-├── streamlit_app.py          # Aplicación web
-├── requirements.txt
-├── .env
+├── app.py
+├── streamlit_app.py
 ├── docs/
-│   ├── DOCUMENTACION_DESARROLLADORES.pdf
-│   └── DOCUMENTACION_USUARIO.pdf
-├── db/
-│   └── faiss_index/
+├── db/faiss_index/
 ├── src/
-│   ├── chatbot.py
-│   ├── config.py
-│   ├── embeddings.py
-│   ├── loader.py
-│   └── prompts.py
-└── tools/
+├── tools/
+└── capturas/
 ```
 
-------------------------------------------------------------------------
-
-# 5. Flujo de procesamiento RAG
-
-1.  Carga de la documentación en formato PDF.
-2.  División del contenido en fragmentos (chunks).
-3.  Generación de embeddings mediante Azure OpenAI.
-4.  Creación del índice vectorial con FAISS.
-5.  Recepción de la consulta del usuario.
-6.  Búsqueda semántica de los fragmentos más relevantes.
-7.  Construcción del contexto para el modelo.
-8.  Generación de la respuesta utilizando GPT-5 Mini.
-
-------------------------------------------------------------------------
-
-# 6. Instalación
+# Instalación
 
 ``` bash
 git clone https://github.com/sudoagile/SudoAgile-AI.git
-
 cd SudoAgile-AI
-
 python -m venv .venv
-
 pip install -r requirements.txt
 ```
 
-------------------------------------------------------------------------
-
-# 7. Variables de entorno
+# Variables de entorno
 
 ``` env
 AZURE_OPENAI_ENDPOINT=
@@ -130,102 +124,103 @@ AZURE_OPENAI_CHAT_API_VERSION=
 AZURE_OPENAI_EMBEDDING_API_VERSION=
 ```
 
-------------------------------------------------------------------------
-
-# 8. Construcción del índice vectorial
+# Construcción del índice
 
 ``` bash
 python app.py
 ```
 
-------------------------------------------------------------------------
-
-# 9. Ejecución de la aplicación
+# Ejecutar la aplicación
 
 ``` bash
 streamlit run streamlit_app.py
 ```
 
-------------------------------------------------------------------------
-
-# 10. Despliegue
+# Despliegue
 
 ## Azure OpenAI
 
-Servicios utilizados:
-
 -   GPT-5 Mini
 -   text-embedding-3-small
--   Azure AI Foundry
--   Grupo de Recursos de Azure
 
-**Capturas sugeridas:**
+### Grupo de recursos
 
--   Grupo de Recursos.
--   Implementaciones de modelos.
--   Azure AI Foundry.
+![Grupo de Recursos](capturas/Grupo%20de%20Recursos%20en%20Azure.png)
+
+### Implementaciones de modelos
+
+![Modelos Azure](capturas/Modelos%20en%20Azure.png)
 
 ## Amazon EC2
 
-La aplicación fue desplegada sobre una instancia Ubuntu con:
+La aplicación se encuentra desplegada en una instancia Ubuntu sobre
+Amazon EC2.
 
--   Python
--   Streamlit
--   LangChain
--   FAISS
--   Git
+![AWS EC2](capturas/aws.png)
 
-Flujo de despliegue:
-
-``` text
-GitHub
-   │
-git pull
-   │
-Entorno Virtual Python
-   │
-Streamlit
-   │
-Puerto 8501
-```
-
-URL pública:
-
-``` text
-http://100.58.178.56:8501
-```
-
-------------------------------------------------------------------------
-
-# 11. Funcionalidades
+# Funcionalidades
 
 -   Consulta de documentación mediante lenguaje natural.
--   Búsqueda semántica utilizando FAISS.
--   Generación de respuestas contextualizadas.
--   Integración con Azure OpenAI.
--   Base de conocimiento en documentos PDF.
--   Interfaz web con Streamlit.
--   Despliegue en AWS EC2.
+-   Búsqueda semántica con FAISS.
+-   Respuestas contextualizadas con Azure OpenAI.
+-   Interfaz web desarrollada con Streamlit.
+-   Despliegue en la nube sobre AWS EC2.
 
-------------------------------------------------------------------------
+# Ejemplos
 
-# 12. Mejoras futuras
+**Pregunta**
 
--   Dominio personalizado.
--   HTTPS mediante Let's Encrypt.
--   Proxy inverso con Nginx.
--   Contenedores Docker.
--   Pipeline CI/CD.
--   Autenticación de usuarios.
--   Historial de conversaciones.
+> ¿Cómo se crea un proyecto?
 
-------------------------------------------------------------------------
+**Respuesta**
 
-# 13. Autor
+El asistente identifica la documentación correspondiente, recupera el
+contexto más relevante desde el índice FAISS y genera una respuesta
+utilizando GPT‑5 Mini.
+
+# Historial de desarrollo
+
+  -----------------------------------------------------------------------
+  Nº           Commit                    Objetivo
+  ------------ ------------------------- --------------------------------
+  1            Creación de la estructura Inicialización del repositorio.
+               del proyecto              
+
+  2            Install project           Configuración del entorno.
+               dependencies              
+
+  3            Agregar carga de          Carga de documentación PDF.
+               documentos                
+
+  4            Implementar división de   Generación de fragmentos
+               documentos en fragmentos  (*chunks*).
+
+  5            Actualizar carga de       Optimización del procesamiento
+               documentos PDF con        de documentos.
+               PyPDFLoader               
+
+  6            Agregar prompt del        Personalización del
+               asistente empresarial     comportamiento del agente.
+
+  7            Configurar modelos GPT-5  Integración con Azure OpenAI.
+               Mini y Embeddings en      
+               Azure                     
+
+  8            Publicar aplicación RAG   Despliegue de la aplicación en
+               en AWS EC2 y actualizar   producción.
+               README                    
+
+  9            Actualización de la       Incorporación de la
+               documentación técnica     documentación final, capturas,
+               (README)                  evidencias de despliegue e
+                                         instrucciones del proyecto.
+  -----------------------------------------------------------------------
+
+# Autor
 
 **Eduardo Ramírez De Lama**
 
 Proyecto desarrollado para el **Challenge Final de Inteligencia
-Artificial - Alura Latam**.
+Artificial -- Alura Latam**.
 
 © Sudo Agile S.A.
